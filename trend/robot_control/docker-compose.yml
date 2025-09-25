@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  alice:
+    build: ./alice
+    container_name: alice
+    ports:
+      - "8200:8080"
+    networks:
+      - crypto-network
+    command:
+      - /start.sh
+    restart: always
+    environment:
+      - BOB_HOST=bob
+    depends_on:
+      - bob
+  
+  bob:
+    build: ./bob
+    container_name: bob
+    networks:
+      - crypto-network
+    environment:
+      - ALICE_PUB_HOST=alice
+networks:
+  crypto-network:
+    driver: bridge

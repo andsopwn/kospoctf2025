@@ -1,0 +1,42 @@
+version: '3'
+services:
+  web:
+    build: ./app
+    container_name: chall_web
+    volumes: # 'volumes' 항목이 중복되어 있던 것을 하나로 정리했습니다.
+      - ./app:/app
+    ports:
+      - "8888:8000"
+    environment:
+      TZ: "Asia/Seoul"
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: mydb
+    depends_on:
+      # db 서비스가 시작된 후에 web 서비스가 시작되도록 보장합니다.
+      # 하지만 db 서비스가 "healthy" 상태가 되었는지까지 확인하지 않습니다.
+      db:
+        condition: service_healthy
+
+  db:
+    image: mysql:8.0
+    container_name: chall_db
+    ports:
+      - "3306:3306"
+    environment:
+      TZ: "Asia/Seoul"
+      DB_NAME: mydb
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mysql_data:

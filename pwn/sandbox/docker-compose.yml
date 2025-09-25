@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+    sandbox:
+        build: ./
+        ports:
+            - "8002:1337"

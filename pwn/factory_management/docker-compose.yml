@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+    factory_management:
+        build: ./
+        ports:
+            - "8001:1337"
+        platform: linux/arm64

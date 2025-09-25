@@ -1,0 +1,24 @@
+service challenge
+{
+    disable         = no
+    type            = UNLISTED
+    port            = 8080
+    socket_type     = stream
+    protocol        = tcp
+    wait            = no
+
+    user            = crypto
+    server          = /usr/bin/python3
+    server_args     = -u /home/crypto/app.py
+
+    bind            = 0.0.0.0
+    only_from       = 0.0.0.0/0
+    flags           = REUSE IPv4
+
+    instances       = 50
+    per_source      = 10
+    cps             = 50 10
+
+    log_on_success  += PID HOST DURATION
+    log_on_failure  += HOST
+}

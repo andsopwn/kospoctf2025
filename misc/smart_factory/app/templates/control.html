@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>생산 제어 페이지</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/control.css') }}" />
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="logo">Smart Factory</div>
+        <a href="/">홈</a>
+        <a href="/product">생산라인</a>
+        {% if login %}
+        <a href="/control">제어</a>
+        <div class="right">
+            <a href="/logout">로그아웃</a>
+        </div>
+        {% else %}
+        <div class="right">
+            <a href="/login">로그인</a>
+            <a href="/register">회원가입</a>
+        </div>
+        {% endif %}
+    </nav>
+
+    <div class="control-dashboard">
+        <div class="control-left-panel">
+            <h2>생산 라인 동작 제어</h2>
+            <div id="line-toggles" class="line-toggle-container"></div>
+
+            <h2>생산 목표량 설정</h2>
+            <div id="material-target-settings" class="target-setting-container"></div>
+        </div>
+
+        <div class="control-right-panel">
+            <h2>계산기</h2>
+            <div class="calculator">
+                <div class="calculator-display" id="calculator-display">0</div>
+                <div class="calculator-buttons">
+                    <button class="calc-button clear" data-action="clear">AC</button>
+                    <button class="calc-button operator" data-action="divide">÷</button>
+                    <button class="calc-button operator" data-action="multiply">×</button>
+                    <button class="calc-button number">7</button>
+                    <button class="calc-button number">8</button>
+                    <button class="calc-button number">9</button>
+                    <button class="calc-button operator" data-action="subtract">-</button>
+                    <button class="calc-button number">4</button>
+                    <button class="calc-button number">5</button>
+                    <button class="calc-button number">6</button>
+                    <button class="calc-button operator" data-action="add">+</button>
+                    <button class="calc-button number">1</button>
+                    <button class="calc-button number">2</button>
+                    <button class="calc-button number">3</button>
+                    <button class="calc-button equal" data-action="calculate">=</button>
+                    <button class="calc-button number zero">0</button>
+                    <button class="calc-button decimal" data-action="decimal">.</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', path='js/control.js') }}"></script>
+</body>
+</html>

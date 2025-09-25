@@ -1,0 +1,6 @@
+services:
+  moverobot:
+    build: .
+    ports:
+      - "8400:8400"
+    restart: always

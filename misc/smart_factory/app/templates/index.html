@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>생산 라인 현황</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/index.css') }}" />
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="logo">Smart Factory</div>
+        <a href="/">홈</a>
+        <a href="/product">생산라인</a>
+        {% if login %}
+        <a href="/control">제어</a>
+        <div class="right">
+            <a href="/logout">로그아웃</a>
+        </div>
+        {% else %}
+        <div class="right">
+            <a href="/login">로그인</a>
+            <a href="/register">회원가입</a>
+        </div>
+        {% endif %}
+    </nav>
+
+    <h2 id="title-text">생산 라인 현황</h2>
+    <div id="manufact-status" class="line-container"></div>
+
+    <script src="{{ url_for('static', path='js/index.js') }}"></script>
+</body>
+</html>
